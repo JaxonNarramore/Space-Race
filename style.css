@@ -1,0 +1,56 @@
+#container {
+  max-width: 50vw;
+  max-height: 110vh;
+  background-color: purple;
+  margin: 0 auto;
+  padding: 1em;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-rows: .1fr .5fr .2fr;
+  grid-template-columns: .25fr .5fr .25fr;
+  grid-template-areas: ". title ."
+                          "game game game"
+                          "btm-left . btm-right";
+}
+
+canvas {
+    background-color: #222;
+    width: 100%;
+    height: 70vh;
+}
+
+body {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    text-align: center;
+    background-image: url(https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fspecials-images.forbesimg.com%2Fdam%2Fimageserve%2F765877054%2F960x0.jpg%3Ffit%3Dscale);
+    background-size: cover;
+    background-repeat: space;
+}
+  
+h1, h2 {
+    color: lime;
+}
+  
+#btm-left, #btm-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: purple;
+}
+
+main {
+    grid-area: game;
+}
+
+#title {
+    grid-area: title;
+}
+
+#btm-left {
+    grid-area: btm-left;
+}
+
+#btm-right {
+    grid-area: btm-right;
+}
