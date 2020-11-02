@@ -1,6 +1,6 @@
 #container {
-  max-width: 50vw;
-  max-height: 110vh;
+  width: 50vw;
+  height: 100vh;
   background-color: purple;
   margin: 0 auto;
   padding: 1em;
@@ -15,7 +15,7 @@
 
 canvas {
     background-color: #222;
-    width: 100%;
+    width: 50vw;
     height: 70vh;
 }
 

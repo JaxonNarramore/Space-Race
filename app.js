@@ -29,7 +29,7 @@ class Rocket {
     }
 }
 
-const rocket = new Rocket(215, 415, 'white', 40, 90);
+const rocket = new Rocket(300, 525, 'white', 40, 90);
 rocket.render();
 
 class Obsticals {
@@ -49,6 +49,29 @@ class Obsticals {
 const satellite = new Obsticals()
 const ufo = new Obsticals()
 const meteor = new Obsticals()
+
+
+
+// Scrolling image
+var img = new Image(); 
+img.src = "space6.png";
+  
+window.onload = function() { 
+    var imgHeight = 0; 
+    var scrollSpeed = 1.5; 
+  
+    function loop() { 
+        ctx.drawImage(img, 0, imgHeight); 
+        ctx.drawImage(img, 0, imgHeight - game.height); 
+        imgHeight += scrollSpeed; 
+  
+       // resets the image 
+        if (imgHeight == game.height) 
+            imgHeight = 0; 
+        window.requestAnimationFrame(loop); 
+    } 
+    loop();
+} 
 
 
 
