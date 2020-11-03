@@ -6,6 +6,7 @@
   padding: 1em;
   display: grid;
   grid-gap: 1em;
+  position: relative;
   grid-template-rows: .1fr .5fr .2fr;
   grid-template-columns: .25fr .5fr .25fr;
   grid-template-areas: ". title ."
@@ -14,7 +15,7 @@
 }
 
 canvas {
-    background-color: #222;
+    background-color: rgb(0, 0, 0);
     width: 50vw;
     height: 70vh;
 }
