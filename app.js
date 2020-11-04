@@ -1,4 +1,3 @@
-// Defining variables / Grabbing elements
 const game = document.querySelector('#game');
 
 const computedStyle = getComputedStyle(game);
@@ -12,6 +11,7 @@ game.height = height.replace('px', '');
 game.width = width.replace('px', '');
 
 const ctx = game.getContext('2d');
+
 
 class Rocket {
     constructor(x, y, color, width, height) {  // change color to image later
@@ -28,7 +28,7 @@ class Rocket {
     }
 }
 
-const rocket = new Rocket(300, 425, 'white', 30, 90);
+const rocket = new Rocket(225, 550, 'white', 30, 90);
 
 document.addEventListener('keydown', function(evt) {
     if (evt.key === 'w') {
@@ -40,7 +40,7 @@ document.addEventListener('keydown', function(evt) {
     } else if (evt.key === 'd') {
         rocket.x +=10
     }
-})
+});
 
 document.addEventListener('keyup', function(evt) {
     if (evt.key === 'w') {
@@ -52,23 +52,76 @@ document.addEventListener('keyup', function(evt) {
     } else if (evt.key === 'd') {
         rocket.x +=10
     }
-})
+});
 
-var posX = 20, posY = 100;
+var spawnLineY = 0;
 
-setInterval(function() {
-    ctx.fillStyle = "black";
-    ctx.fillRect(0,0,game.width, game.height);
-    posX += 6;
-    posY += 4;
+var spawnRate = 1000;
+
+var spawnRateOfDescent = 0.80;
+
+var lastSpawn = -1;
+
+var meteors = [];
+
+var startTime = Date.now();
+
+animate();
+
+var t;
+
+function spawnRandomMeteor() {
+    t = "orange"
+    var meteor = {
+        type: t,
+        x: Math.random() * (game.width - 30) + 15,
+        y: spawnLineY,
+    }
+    meteors.push(meteor);
+}
+
+function animate() {
+    var time = Date.now();
+    if (time > (lastSpawn + spawnRate)) {
+        lastSpawn = time;
+        spawnRandomMeteor();
+    }
+    
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, game.width, game.height);
     ctx.beginPath();
-    ctx.fillStyle = "orange";
-    ctx.arc(posX, posY, 20, 0, Math.PI*2, true); 
-    ctx.closePath();
-    ctx.fill();
+    ctx.moveTo(0, spawnLineY);
+    ctx.lineTo(game.width, spawnLineY);
+    ctx.stroke();
     rocket.render();
     
-}, 30);
+    for (var i = 0; i < meteors.length; i++) {
+        var meteor = meteors[i];
+        meteor.y += spawnRateOfDescent;
+        ctx.beginPath();
+        ctx.arc(meteor.x, meteor.y, 10, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fillStyle = meteor.type;
+        ctx.fill();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -96,37 +149,3 @@ setInterval(function() {
         // } 
         
         
-        // function rePaint() {
-            //     ctx.clearRect(0, 0, game.width, game.height)
-            
-            
-            
-            //     // rocket.render();
-            //     // meteor.render();
-            
-            // }
-            
-            // setInterval(rePaint, 1000 / 60) 
-            
-            
-            
-            // class Obsticals {
-                //     constructor(x, y, color, width, height, velocity) {  // Change color to image later
-                //         this.x = x
-                //         this.y = y
-                //         this.color = color  // Change to sprite image later
-                //         this.width = width
-                //         this.height = height
-                //         this.velocity = velocity
-                //     }
-                //     render() {
-                    //         ctx.fillStyle = this.color
-                    //         ctx.fillRect(this.x, this.y, this.width, this.height)
-                    //     }
-                    // }
-                    
-            
-                    // const meteor = new Obsticals(200, 325, 'grey', 20, 20);
-                    
-
-                    // meteor.render();
