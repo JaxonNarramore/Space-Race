@@ -1,5 +1,7 @@
 const game = document.querySelector('#game');
 
+const score = document.querySelector('#score');
+
 const computedStyle = getComputedStyle(game);
 
 const height = computedStyle.height;
@@ -28,7 +30,22 @@ class Rocket {
     }
 }
 
-const rocket = new Rocket(225, 550, 'white', 30, 90);
+
+// class Meteor {
+//     constructor(x, y, r) {  // change color to image later
+//         this.x = x
+//         this.y = y
+//         this.r = r
+//     }
+//     render() {
+//         ctx.fillStyle = this.color
+//         ctx.fillRect(this.x, this.y, this.width, this.height)
+//     }
+// }
+
+const rocket = new Rocket(225, 550, 'white', 25, 80);
+
+// const meteor = new Meteor(this.t = "orange", this.x = Math.random() * (game.width - 30) + 15, this.y = 0, this.r = 10);
 
 document.addEventListener('keydown', function(evt) {
     if (evt.key === 'w') {
@@ -56,9 +73,9 @@ document.addEventListener('keyup', function(evt) {
 
 var spawnLineY = 0;
 
-var spawnRate = 1000;
+var spawnRate = 500;
 
-var spawnRateOfDescent = 0.80;
+var spawnRateOfDescent = 0.90;
 
 var lastSpawn = -1;
 
@@ -66,9 +83,9 @@ var meteors = [];
 
 var startTime = Date.now();
 
-animate();
-
 var t;
+
+animate();
 
 function spawnRandomMeteor() {
     t = "orange"
@@ -76,46 +93,64 @@ function spawnRandomMeteor() {
         type: t,
         x: Math.random() * (game.width - 30) + 15,
         y: spawnLineY,
+        r: 10
     }
     meteors.push(meteor);
-}
-
-function animate() {
-    var time = Date.now();
-    if (time > (lastSpawn + spawnRate)) {
-        lastSpawn = time;
-        spawnRandomMeteor();
+    
+    function collisionDetection(meteor, rocket) {
+    var distX = Math.abs(meteor.x - rocket.x - rocket.width / 2);
+    var distY = Math.abs(meteor.y - rocket.y - rocket.height / 2);
+    
+    if (distX > (rocket.width / 2 + meteor.r)) {
+        console.log('no hit');
     }
     
-    requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, game.width, game.height);
-    ctx.beginPath();
-    ctx.moveTo(0, spawnLineY);
-    ctx.lineTo(game.width, spawnLineY);
-    ctx.stroke();
-    rocket.render();
+    if (distY > (rocket.height / 2 + meteor.r)) {
+        console.log('no hit');
+    }
     
-    for (var i = 0; i < meteors.length; i++) {
-        var meteor = meteors[i];
-        meteor.y += spawnRateOfDescent;
+    if (distX <= (rocket.width / 2)) {
+        console.log('hit');
+    }
+    
+    if (distY <= (rocket.height / 2)) {
+        console.log('hit');
+    }
+    
+    var dx = distX - rocket.width / 2;
+    var dy = distY - rocket.height / 2;
+    return (dx * dx + dy * dy <= (meteor.r * meteor.r));
+    }
+    collisionDetection(rocket, meteor);
+}
+
+    
+    function animate() {
+        var time = Date.now();
+        if (time > (lastSpawn + spawnRate)) {
+            lastSpawn = time;
+            spawnRandomMeteor();
+        }
+        
+        requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, game.width, game.height);
         ctx.beginPath();
-        ctx.arc(meteor.x, meteor.y, 10, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fillStyle = meteor.type;
-        ctx.fill();
+        ctx.moveTo(0, spawnLineY);
+        ctx.lineTo(game.width, spawnLineY);
+        ctx.stroke();
+        rocket.render();
+        
+        for (var i = 0; i < meteors.length; i++) {
+            var meteor = meteors[i];
+            meteor.y += spawnRateOfDescent;
+            ctx.beginPath();
+            ctx.arc(meteor.x, meteor.y, 10, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStyle = meteor.type;
+            ctx.fill();
+        }
     }
-}
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 
