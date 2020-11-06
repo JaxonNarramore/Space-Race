@@ -16,8 +16,6 @@
 
 canvas {
     background-image: url(image.png);
-    width: 50vw;
-    height: 70vh;
 }
 
 body {
@@ -54,4 +52,26 @@ main {
 
 #btm-right {
     grid-area: btm-right;
+}
+#game-over {
+    font-size: 130px;
+    width: 91%;
+    color: white;
+    background-color: black;
+    position: absolute;
+    top: 270px;
+    left: 17px;
+}
+#game-over-button {
+    font-size: 60px;
+    width: 91%;
+    color: white;
+    background-color: black;
+    position: absolute;
+    top: 580px;
+    left: 17px;
+}
+#game-over-button:hover {
+    color: purple;
+    cursor: pointer;
 }
