@@ -71,7 +71,7 @@ var spawnRateOfDescent = 0.90;
 
 var lastSpawn = -1;
 
-var meteors = [];
+var astroids = [];
 
 var startTime = Date.now();
 
@@ -81,15 +81,15 @@ var stop;
 
 animate();
 
-function spawnRandomMeteor() {
+function spawnRandomAstroid() {
     t = "orange"
-    const meteor = {
+    const astroid = {
         type: t,
         x: Math.random() * (game.width - 30) + 15,
         y: spawnLineY,
         r: 10
     }
-    meteors.push(meteor);
+    astroids.push(astroid);
     
 }
 
@@ -97,7 +97,7 @@ function animate() {
     var time = Date.now();
     if (time > (lastSpawn + spawnRate)) {
         lastSpawn = time;
-        spawnRandomMeteor();
+        spawnRandomAstroid();
     }
     stop = requestAnimationFrame(animate);
     ctx.clearRect(0, 0, game.width, game.height);
@@ -106,24 +106,24 @@ function animate() {
     ctx.lineTo(game.width, spawnLineY);
     ctx.stroke();
     
-    for (var i = 0; i < meteors.length; i++) {
-        var meteor = meteors[i];
-        meteor.y += spawnRateOfDescent;
+    for (var i = 0; i < astroids.length; i++) {
+        var astroid = astroids[i];
+        astroid.y += spawnRateOfDescent;
         ctx.beginPath();
-        ctx.arc(meteor.x, meteor.y, 10, 0, Math.PI * 2);
+        ctx.arc(astroid.x, astroid.y, 10, 0, Math.PI * 2);
         ctx.closePath();
-        ctx.fillStyle = meteor.type;
+        ctx.fillStyle = astroid.type;
         ctx.fill();
         rocket.render();
     }
-    for (let i = 0; i < meteors.length; i++) {
-        collisionDetection(meteors[i], rocket)
+    for (let i = 0; i < astroids.length; i++) {
+        collisionDetection(astroids[i], rocket)
     }
 }
 
-function collisionDetection(meteor, rocket) {
-    var distX = Math.abs(meteor.x - rocket.x - rocket.width / 2);  
-    var distY = Math.abs(meteor.y - rocket.y - rocket.height / 2);
+function collisionDetection(astroid, rocket) {
+    var distX = Math.abs(astroid.x - rocket.x - rocket.width / 2);  
+    var distY = Math.abs(astroid.y - rocket.y - rocket.height / 2);
 
     if (distX <= (rocket.width / 2) && distY <= (rocket.height / 2)) {
        document.getElementById('game-over').innerHTML = 'Game Over';
@@ -136,7 +136,7 @@ function collisionDetection(meteor, rocket) {
     
     var dx = distX - rocket.width / 2;
     var dy = distY - rocket.height / 2;
-    return (dx * dx + dy * dy <= (meteor.r * meteor.r));
+    return (dx * dx + dy * dy <= (astroid.r * astroid.r));
 }
 
 function gameRestart() {
