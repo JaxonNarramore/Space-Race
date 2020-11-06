@@ -14,6 +14,12 @@ game.width = 400; //width.replace('px', '');
 
 let restartButton;
 
+var startTime, endTime;
+
+function start() {
+    startTime = new Date();
+  };
+
 const ctx = game.getContext('2d');
 
 class Rocket {
@@ -71,6 +77,8 @@ var startTime = Date.now();
 
 var t;
 
+var stop;
+
 animate();
 
 function spawnRandomMeteor() {
@@ -91,7 +99,7 @@ function animate() {
         lastSpawn = time;
         spawnRandomMeteor();
     }
-    requestAnimationFrame(animate);
+    stop = requestAnimationFrame(animate);
     ctx.clearRect(0, 0, game.width, game.height);
     ctx.beginPath();
     ctx.moveTo(0, spawnLineY);
@@ -122,12 +130,12 @@ function collisionDetection(meteor, rocket) {
        document.getElementById('game-over-button').innerHTML = 'Restart';
        restartButton = document.getElementById('game-over-button');
        restartButton.addEventListener('click', gameRestart);
-       
+       end();
+       cancelAnimationFrame(stop)
     }
     
     var dx = distX - rocket.width / 2;
     var dy = distY - rocket.height / 2;
-    
     return (dx * dx + dy * dy <= (meteor.r * meteor.r));
 }
 
@@ -135,6 +143,13 @@ function gameRestart() {
     location.reload();
 }
 
+function end() {
+  endTime = new Date();
+  var timeDiff = endTime - startTime; 
+  timeDiff /= 1000;
+  var seconds = Math.round(timeDiff);
+  document.getElementById('score').innerHTML = seconds;
+}
 
 
 
