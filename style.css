@@ -1,6 +1,6 @@
 #container {
-  width: 50vw;
-  height: 100vh;
+  width: 500px;
+  height: 880px;
   background-color: purple;
   margin: 0 auto;
   padding: 1em;
@@ -46,50 +46,118 @@ main {
     grid-area: title;
 }
 
-/* #btm-left {
-    grid-area: btm-left;
+#highscoretext {
+    position: absolute;
+    left: 30px;
+    top: 700px;
 }
 
-#btm-right {
-    grid-area: btm-right; 
-}  */
 #game-over {
-    font-size: 130px;
-    width: 91%;
-    color: white;
-    background-color: black;
+    font-size: 140px;
+    width: 94%;
+    color: lime;
     position: absolute;
-    top: 270px;
-    left: 17px;
+    top: 112px;
+    left: 15px;
 }
 #game-over-button {
-    font-size: 60px;
-    width: 91%;
-    color: white;
-    background-color: black;
+    font-size: 70px;
+    width: 94%;
+    color: purple;
     position: absolute;
-    top: 580px;
-    left: 17px;
+    top: 610px;
+    left: 15px;
 }
 #game-over-button:hover {
-    color: purple;
+    color: lime;
     cursor: pointer;
 }
 #scoretext {
-    font-size: 60px;
-    width: 91%;
-    color: white;
-    background-color: black;
+    font-size: 70px;
+    width: 94%;
+    color: lime;
     position: absolute;
-    top: 600px;
-    left: 17px;
+    top: 386px;
+    left: 15px;
 }
 #score {
-    font-size: 60px;
-    width: 91%;
-    color: white;
-    background-color: black;
+    font-size: 70px;
+    width: 94%;
+    color: lime;
     position: absolute;
-    top: 680px;
-    left: 17px;
+    top: 460px;
+    left: 15px;
+}
+#highscore {
+    position: absolute;
+    left: 70px;
+    top: 740px;
+}
+
+li {
+    padding: 5px;
+    list-style-type: none;
+}
+
+.instructions1 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 376px;
+    top: 766px;
+}
+.instructions2 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 359px;
+    top: 796px;
+}
+.instructions3 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 355px;
+    top: 826px;
+}
+.instructions4 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    left: 365px;
+    top: 856px;
+}
+
+#instructionstitle {
+    position: absolute;
+    left: 365px;
+    top: 700px;
+}
+#keys1 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 800px;
+    left: 210px;
+}
+#keys2 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 820px;
+    left: 210px;
+}
+#keys3 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 840px;
+    left: 210px;
+}
+#keys4 {
+    color: lime;
+    font-size: 18px;
+    position: absolute;
+    top: 860px;
+    left: 210px;
 }

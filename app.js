@@ -3,7 +3,7 @@ const game = document.querySelector('#game');
 
 game.height = 600;
 
-game.width = 400;
+game.width = 500;
 
 let restartButton;
 
@@ -56,9 +56,9 @@ document.addEventListener('keyup', function(evt) {
 // Astroid spawning variables
 var spawnLineY = 0;
 
-var spawnRate = 500;
+var spawnRate = 150;
 
-var spawnRateOfDescent = 0.90;
+var spawnRateOfDescent = 1.5;
 
 var lastSpawn = -1;
 
@@ -74,7 +74,7 @@ animate();
 
 // Random astroid spawning
 function spawnRandomAstroid() {
-    t = "orange"
+    t = "grey"
     const astroid = {
         type: t,
         x: Math.random() * (game.width - 30) + 15,
@@ -127,7 +127,6 @@ function collisionDetection(astroid, rocket) {
        end();
        cancelAnimationFrame(stop)
        document.getElementById('scoretext').innerHTML = 'Score';
-    //    document.getElementById('score').innerHTML = seconds;
     }
     
     var dx = distX - rocket.width / 1.5;
@@ -170,7 +169,7 @@ highScores.push(score);
 
 highScores.sort((a, b) => b.score - a.score);
 
-highScores.splice(5);
+highScores.splice(3);
 
 localStorage.setItem('highScores', JSON.stringify(highScores));
 
@@ -184,111 +183,3 @@ const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 highScoreList.innerHTML = highScores.map(score => {
     return `<li>${score.score}</li>`;
 }).join('');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var localStorageName = 'bestestscore';
-
-// var highScore;
-
-// highScore = localStorage.getItem(localStorageName) == null ? 0 :
-//             localStorage.getItem(localStorageName);
-
-
-// if(localStorage.getItem(localStorageName) == null) {
-//     highScore = 0;
-// } else {
-//     highScore = localStorage.getItem(localStorageName);
-// }
-
-// function getHighScore() {
-//     highScore = Math.max(score, highScore);
-//     localStorage.setItem(localStorageName, highScore);
-    
-//     var style = {
-//         font: "32px Monospace",
-//         fill: "#00ff00",
-//         align: "center"
-//     }
-    
-//     var text = game.add.text(
-//         game.width / 2, game.height / 2, "Game Over\n\nYour score: " + score + "\nBest score: " + highScore + "\n\nTap to restart", style
-//     );
-    
-//     text.anchor.set(0.5);
-//     game.input.onDown.add(this.restartGame, this);
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// EXTRA CODE I DIDNT WANT TO DELETE BUT MIGHT USE LATER 
-
-// // Scrolling image
-// var img = new Image(); 
-// img.src = "space6.png";
-
-// window.onload = function() { 
-    //     var imgHeight = 0; 
-    //     var scrollSpeed = 1.5; 
-    
-    //     function loop() { 
-        //         ctx.drawImage(img, 0, imgHeight); 
-        //         ctx.drawImage(img, 0, imgHeight - game.height); 
-        //         imgHeight += scrollSpeed; 
-        
-        //        // resets the image 
-        //         if (imgHeight == game.height) 
-        //             imgHeight = 0; 
-        //         window.requestAnimationFrame(loop); 
-        //     } 
-        //     loop();
-        // } 
-        
-        
