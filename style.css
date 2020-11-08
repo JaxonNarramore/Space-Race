@@ -11,7 +11,7 @@
   grid-template-columns: .25fr .5fr .25fr;
   grid-template-areas: ". title ."
                           "game game game"
-                          "btm-left . btm-right";
+                          ". . .";
 }
 
 canvas {
@@ -46,13 +46,13 @@ main {
     grid-area: title;
 }
 
-#btm-left {
+/* #btm-left {
     grid-area: btm-left;
 }
 
 #btm-right {
-    grid-area: btm-right;
-}
+    grid-area: btm-right; 
+}  */
 #game-over {
     font-size: 130px;
     width: 91%;
@@ -74,4 +74,22 @@ main {
 #game-over-button:hover {
     color: purple;
     cursor: pointer;
+}
+#scoretext {
+    font-size: 60px;
+    width: 91%;
+    color: white;
+    background-color: black;
+    position: absolute;
+    top: 600px;
+    left: 17px;
+}
+#score {
+    font-size: 60px;
+    width: 91%;
+    color: white;
+    background-color: black;
+    position: absolute;
+    top: 680px;
+    left: 17px;
 }

@@ -84,6 +84,11 @@ function collisionDetection(astroid, rocket) {
        end();
        cancelAnimationFrame(stop)
     }
+    
+    var dx = distX - rocket.width / 2;
+    var dy = distY - rocket.height / 2;
+    return (dx * dx + dy * dy <= (astroid.r * astroid.r));
+}
 ```
 
 ## Contact with creator 
