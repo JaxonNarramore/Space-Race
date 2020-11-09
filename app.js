@@ -15,8 +15,8 @@ document.getElementById('startbutton').addEventListener('click', function() {
     const keys = {};
 
     const rocket = {
-        x: 200,
-        y: 200, 
+        x: 240,
+        y: 500, 
         width: 16,
         height: 23.5,
         frameX: 2,
