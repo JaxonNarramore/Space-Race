@@ -16,6 +16,8 @@
 
 canvas {
     background-image: url(image.png);
+    height: 600px;
+    width: 500px;
 }
 
 body {
@@ -160,4 +162,12 @@ li {
     position: absolute;
     top: 860px;
     left: 210px;
+}
+#startbutton {
+    font-size: 40px;
+    color: rgb(37, 225, 231);
+}
+#startbutton:hover {
+    color: lime;
+    cursor: pointer;
 }

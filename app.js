@@ -1,4 +1,5 @@
 // Game variables
+document.getElementById('startbutton').addEventListener('click', function() {
 const game = document.querySelector('#game');
 
 game.height = 600;
@@ -26,30 +27,46 @@ class Rocket {
     }
 }
 
-const rocket = new Rocket(225, 550, 'white', 25, 80);
+const rocket = new Rocket(225, 520, 'white', 25, 80);
 
 // Key press linking 
 document.addEventListener('keydown', function(evt) {
     if (evt.key === 'w') {
-        rocket.y -= 10
+        if (rocket.y - 5 > 0){
+            rocket.y -= 10
+                }
     } else if (evt.key === 'a') {
+        if (rocket.x - 5 > 0){
         rocket.x -= 10
+            }
     } else if (evt.key === 's') {
-        rocket.y += 10
+        if (rocket.y + rocket.height + 5 < game.height) {
+            rocket.y += 10
+            }
     } else if (evt.key === 'd') {
-        rocket.x +=10
+        if (rocket.x + rocket.width + 5 < game.width) {
+            rocket.x += 10
+            }
     }
 });
 
 document.addEventListener('keyup', function(evt) {
     if (evt.key === 'w') {
-        rocket.y -= 10
+        if (rocket.y - 5 > 0){
+            rocket.y -= 10
+                }
     } else if (evt.key === 'a') {
+        if (rocket.x - 5 > 0) {
         rocket.x -= 10
+        }
     } else if (evt.key === 's') {
-        rocket.y += 10
+        if (rocket.y + rocket.height + 5 < game.height) {
+            rocket.y += 10
+            }
     } else if (evt.key === 'd') {
-        rocket.x +=10
+        if (rocket.x + rocket.width + 5 < game.width) {
+        rocket.x += 10
+        }
     }
 });
 
@@ -139,11 +156,8 @@ function gameRestart() {
     location.reload();
 }
 
-// Score keeping 
-function start() {
-    startTime = new Date();
-};
 
+// Score keeping 
 function end() {
     endTime = new Date();
     var timeDiff = endTime - startTime; 
@@ -176,10 +190,12 @@ localStorage.setItem('highScores', JSON.stringify(highScores));
 document.getElementById('score').innerHTML = seconds;
 }
 
-const highScoreList = document.getElementById('highscore');
-
-const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-
-highScoreList.innerHTML = highScores.map(score => {
-    return `<li>${score.score}</li>`;
-}).join('');
+});
+    
+    const highScoreList = document.getElementById('highscore');
+    
+    const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    
+    highScoreList.innerHTML = highScores.map(score => {
+        return `<li>${score.score}</li>`;
+    }).join('');
