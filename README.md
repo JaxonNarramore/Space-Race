@@ -3,10 +3,12 @@ This is a game where you are controlling a rocket and the goal is to avoid the a
 
 ## Controls
 To control the rocket you use the W, A, S, D keys.
+```
 W = Up
 S = Down
 A = Left
 D = Right
+```
 
 ## Game Images
 
