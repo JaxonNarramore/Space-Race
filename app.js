@@ -1,201 +1,244 @@
-// Game variables
+// Start button function
 document.getElementById('startbutton').addEventListener('click', function() {
-const game = document.querySelector('#game');
+    const game = document.querySelector('#game');
 
-game.height = 600;
+    game.height = 600;
 
-game.width = 500;
+    game.width = 500;
 
-let restartButton;
+    let restartButton;
 
-var startTime, endTime;
+    var startTime, endTime;
 
-const ctx = game.getContext('2d');
+    const ctx = game.getContext('2d');
 
-class Rocket {
-    constructor(x, y, color, width, height) {  // change color to image later
-        this.x = x
-        this.y = y
-        this.color = color  // Change to sprite image later
-        this.width = width
-        this.height = height
-        this.alive = true
+    const keys = {};
+
+    const rocket = {
+        x: 200,
+        y: 200, 
+        width: 16,
+        height: 23.5,
+        frameX: 2,
+        frameY: 1,
+    };
+    // Grabbing sprite img
+    const rocketSprite = new Image();
+    rocketSprite.src = 'ship.png';
+
+    // Drawing sprite image
+    function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+        ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
     }
-    render() {
-        ctx.fillStyle = this.color
-        ctx.fillRect(this.x, this.y, this.width, this.height)
-    }
-}
 
-const rocket = new Rocket(225, 520, 'white', 25, 80);
+    // Rocket flame movement
+    // function handleRocketFrame() {
+    //     if (rocket.frameY < 1) rocket.frameY++
+    //     else rocket.frameY = 0;
+    // }
 
-// Key press linking 
-document.addEventListener('keydown', function(evt) {
-    if (evt.key === 'w') {
-        if (rocket.y - 5 > 0){
-            rocket.y -= 10
-                }
-    } else if (evt.key === 'a') {
-        if (rocket.x - 5 > 0){
-        rocket.x -= 10
-            }
-    } else if (evt.key === 's') {
-        if (rocket.y + rocket.height + 5 < game.height) {
-            rocket.y += 10
-            }
-    } else if (evt.key === 'd') {
-        if (rocket.x + rocket.width + 5 < game.width) {
-            rocket.x += 10
-            }
-    }
-});
-
-document.addEventListener('keyup', function(evt) {
-    if (evt.key === 'w') {
-        if (rocket.y - 5 > 0){
-            rocket.y -= 10
-                }
-    } else if (evt.key === 'a') {
-        if (rocket.x - 5 > 0) {
-        rocket.x -= 10
+    // linking key movements to game movements
+    document.addEventListener('keydown', function(evt) {
+        if (evt.key === 'w') {
+            keys['w'] = true;
+        } else if (evt.key === 'a') {
+            keys.a = true;
+        } else if (evt.key === 's') {
+        const theLetterS = 's';
+        keys[theLetterS] = true;
+        } else if (evt.key === 'd') {
+            keys['d'] = true;
         }
-    } else if (evt.key === 's') {
-        if (rocket.y + rocket.height + 5 < game.height) {
-            rocket.y += 10
-            }
-    } else if (evt.key === 'd') {
-        if (rocket.x + rocket.width + 5 < game.width) {
-        rocket.x += 10
+    });
+
+    document.addEventListener('keyup', function(evt) {
+        if (evt.key === 'w') {
+            keys['w'] = false;
+        } else if (evt.key === 'a') {
+            keys.a = false;
+        } else if (evt.key === 's') {
+        const theLetterS = 's';
+        keys[theLetterS] = false;
+        } else if (evt.key === 'd') {
+            keys['d'] = false;
         }
+    });
+
+    // Astroid spawning variables
+    var spawnLineY = 0;
+
+    var spawnRate = 150;
+
+    var spawnRateOfDescent = 1.5;
+
+    var lastSpawn = -1;
+
+    var astroids = [];
+
+    var startTime = Date.now();
+
+    var color;
+
+    var stop;
+
+    animate();
+
+    // Random astroid spawning
+    function spawnRandomAstroid() {
+        color = "grey"
+        const astroid = {
+            type: color,
+            x: Math.random() * (game.width - 30) + 15,
+            y: spawnLineY,
+            r: 10
+        }
+        astroids.push(astroid);
     }
-});
 
-// Astroid spawning variables
-var spawnLineY = 0;
+    // Animation of canvas
+    function animate() {
+        var time = Date.now();
+        if (time > (lastSpawn + spawnRate)) {
+            lastSpawn = time;
+            spawnRandomAstroid();
+        }
+        stop = requestAnimationFrame(animate);
 
-var spawnRate = 150;
+        ctx.clearRect(0, 0, game.width, game.height);
 
-var spawnRateOfDescent = 1.5;
-
-var lastSpawn = -1;
-
-var astroids = [];
-
-var startTime = Date.now();
-
-var t;
-
-var stop;
-
-animate();
-
-// Random astroid spawning
-function spawnRandomAstroid() {
-    t = "grey"
-    const astroid = {
-        type: t,
-        x: Math.random() * (game.width - 30) + 15,
-        y: spawnLineY,
-        r: 10
-    }
-    astroids.push(astroid);
-}
-
-// Animation
-function animate() {
-    var time = Date.now();
-    if (time > (lastSpawn + spawnRate)) {
-        lastSpawn = time;
-        spawnRandomAstroid();
-    }
-    
-    stop = requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, game.width, game.height);
-    ctx.beginPath();
-    ctx.moveTo(0, spawnLineY);
-    ctx.lineTo(game.width, spawnLineY);
-    ctx.stroke();
-    
-    for (var i = 0; i < astroids.length; i++) {
-        var astroid = astroids[i];
-        astroid.y += spawnRateOfDescent;
         ctx.beginPath();
-        ctx.arc(astroid.x, astroid.y, 10, 0, Math.PI * 2);
-        ctx.closePath();
-        ctx.fillStyle = astroid.type;
-        ctx.fill();
-        rocket.render();
+
+        ctx.moveTo(0, spawnLineY);
+
+        ctx.lineTo(game.width, spawnLineY);
+
+        ctx.stroke();
+        
+        for (var i = 0; i < astroids.length; i++) {
+            var astroid = astroids[i];
+
+            astroid.y += spawnRateOfDescent;
+
+            ctx.beginPath();
+
+            ctx.arc(astroid.x, astroid.y, 10, 0, Math.PI * 2);
+
+            ctx.closePath();
+
+            ctx.fillStyle = astroid.type;
+
+            ctx.fill();
+        }
+        for (let i = 0; i < astroids.length; i++) {
+            collisionDetection(astroids[i], rocket)
+        }
+        // Movement of rocket 
+        if (keys.w) {
+            if (rocket.y - 5 > 0){
+                rocket.y -= 1.5
+                rocket.frameX = 2;
+            }
+        } 
+        if (keys.a) {
+            if (rocket.x - 5 > 0){
+                rocket.x -= 1.5
+                rocket.frameX = 0;
+            }
+        } 
+        if (keys.s) {
+            if (rocket.y + rocket.height + 5 < game.height) {
+                rocket.y += 1.5
+                rocket.frameX = 2;
+            }
+        } 
+        if (keys.d) {
+            if (rocket.x + rocket.width + 5 < game.width) {
+                rocket.x += 1.5
+                rocket.frameX = 4;
+            }
+        }
+        drawSprite(rocketSprite, rocket.width * rocket.frameX, rocket.height * rocket.frameY, rocket.width, rocket.height, rocket.x, rocket.y, rocket.width, rocket.height);
+
+        handleRocketFrame();
     }
-    for (let i = 0; i < astroids.length; i++) {
-        collisionDetection(astroids[i], rocket)
+
+    // Collision detection / game over functions
+    function collisionDetection(astroid, rocket) {
+        var distX = Math.abs(astroid.x - rocket.x - rocket.width / 2);  
+        var distY = Math.abs(astroid.y - rocket.y - rocket.height / 2);
+
+        if (distX <= (rocket.width / 1.1) && distY <= (rocket.height / 2)) {
+        document.getElementById('game-over').innerHTML = 'Game Over';
+
+        document.getElementById('game-over-button').innerHTML = 'Restart';
+
+        restartButton = document.getElementById('game-over-button');
+
+        restartButton.addEventListener('click', gameRestart);
+
+        end();
+
+        cancelAnimationFrame(stop)
+
+        document.getElementById('scoretext').innerHTML = 'Score';
+        }
+        
+        var dx = distX - rocket.width / 2;
+
+        var dy = distY - rocket.height / 2;
+
+        return (dx * dx + dy * dy <= (astroid.r * astroid.r));
     }
-}
 
-// Collision detection
-function collisionDetection(astroid, rocket) {
-    var distX = Math.abs(astroid.x - rocket.x - rocket.width / 1.5);  
-    var distY = Math.abs(astroid.y - rocket.y - rocket.height / 1.8);
-
-    if (distX <= (rocket.width / 1.5) && distY <= (rocket.height / 1.8)) {
-       document.getElementById('game-over').innerHTML = 'Game Over';
-       document.getElementById('game-over-button').innerHTML = 'Restart';
-       restartButton = document.getElementById('game-over-button');
-       restartButton.addEventListener('click', gameRestart);
-       end();
-       cancelAnimationFrame(stop)
-       document.getElementById('scoretext').innerHTML = 'Score';
+    // Restart button
+    function gameRestart() {
+        location.reload();
     }
-    
-    var dx = distX - rocket.width / 1.5;
-    var dy = distY - rocket.height / 1.8;
-    return (dx * dx + dy * dy <= (astroid.r * astroid.r));
-}
 
-// Restart button
-function gameRestart() {
-    location.reload();
-}
+    // Score / highscore keeping / displaying
+    function end() {
+        endTime = new Date();
 
+        var timeDiff = endTime - startTime; 
 
-// Score keeping 
-function end() {
-    endTime = new Date();
-    var timeDiff = endTime - startTime; 
-    timeDiff /= 1000;
-    
-    let seconds = Math.round(timeDiff);
-    document.getElementById('score').innerHTML = seconds;
+        timeDiff /= 1000;
 
+        let seconds = Math.round(timeDiff);
 
-const finalScore = document.getElementById('score');
+        document.getElementById('score').innerHTML = seconds;
 
-const mostRecentScore = localStorage.getItem('mostRecentScore')
+        const finalScore = document.getElementById('score');
 
-let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+        const mostRecentScore = localStorage.getItem('mostRecentScore')
 
-finalScore.innerText = mostRecentScore;
+        let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
-const score = {
-    score: seconds
-};
+        finalScore.innerText = mostRecentScore;
 
-highScores.push(score);
+        const score = { score: seconds };
 
-highScores.sort((a, b) => b.score - a.score);
+        highScores.push(score);
 
-highScores.splice(3);
+        highScores.sort((a, b) => b.score - a.score);
 
-localStorage.setItem('highScores', JSON.stringify(highScores));
+        highScores.splice(3);
 
-document.getElementById('score').innerHTML = seconds;
-}
+        localStorage.setItem('highScores', JSON.stringify(highScores));
 
+        document.getElementById('score').innerHTML = seconds;
+    }
 });
     
-    const highScoreList = document.getElementById('highscore');
-    
-    const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-    
-    highScoreList.innerHTML = highScores.map(score => {
-        return `<li>${score.score}</li>`;
-    }).join('');
+const highScoreList = document.getElementById('highscore');
+
+const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+highScoreList.innerHTML = highScores.map(score => {
+    return `<li>${score.score}</li>`;
+}).join('');
+
+
+
+
+
+
