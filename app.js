@@ -32,11 +32,10 @@ document.getElementById('startbutton').addEventListener('click', function() {
     }
 
     // Rocket flame movement
-    // function handleRocketFrame() {
-    //     if (rocket.frameY < 1) rocket.frameY++
-    //     else rocket.frameY = 0;
-    // }
-
+    function handleRocketFrame() {
+        if (rocket.frameY < 1) rocket.frameY++
+        else rocket.frameY = 0;
+    }
     // linking key movements to game movements
     document.addEventListener('keydown', function(evt) {
         if (evt.key === 'w') {
@@ -67,7 +66,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
     // Astroid spawning variables
     var spawnLineY = 0;
 
-    var spawnRate = 150;
+    var spawnRate = 100;
 
     var spawnRateOfDescent = 1.5;
 
