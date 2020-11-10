@@ -32,7 +32,7 @@ git clone https://github.com/JaxonNarramore/Space-Race.git
 open index.html
 ```
 
-## Animation function
+## Animation of the canvas
 
 ```javascript
 function animate() {
@@ -45,6 +45,7 @@ function animate() {
 
         ctx.clearRect(0, 0, game.width, game.height);
 
+        // Spawning astroids at the top of the canvas
         ctx.beginPath();
 
         ctx.moveTo(0, spawnLineY);
@@ -53,9 +54,11 @@ function animate() {
 
         ctx.stroke();
         
+        // Itterating through astroids array 
         for (var i = 0; i < astroids.length; i++) {
             var astroid = astroids[i];
 
+            // Spawning of astroids and moving them down the page
             astroid.y += spawnRateOfDescent;
 
             ctx.beginPath();
@@ -68,6 +71,7 @@ function animate() {
 
             ctx.fill();
         }
+        // Itterating through astroids array for collision detection
         for (let i = 0; i < astroids.length; i++) {
             collisionDetection(astroids[i], rocket)
         }
@@ -96,20 +100,22 @@ function animate() {
                 rocket.frameX = 4;
             }
         }
+        // Rendering sprite onto the canvas
         drawSprite(rocketSprite, rocket.width * rocket.frameX, rocket.height * rocket.frameY, rocket.width, rocket.height, rocket.x, rocket.y, rocket.width, rocket.height);
 
         handleRocketFrame();
     }
 ```
 
-## Function for collision detection
+## Collision detection for astriods and rocket
 
 ```javascript
- function collisionDetection(astroid, rocket) {
+function collisionDetection(astroid, rocket) {
         var distX = Math.abs(astroid.x - rocket.x - rocket.width / 2);  
         var distY = Math.abs(astroid.y - rocket.y - rocket.height / 2);
 
         if (distX <= (rocket.width / 1.1) && distY <= (rocket.height / 2)) {
+        // Game over conditions
         document.getElementById('game-over').innerHTML = 'Game Over';
 
         document.getElementById('game-over-button').innerHTML = 'Restart';
@@ -125,6 +131,7 @@ function animate() {
         document.getElementById('scoretext').innerHTML = 'Score';
         }
         
+        // More collision detection math
         var dx = distX - rocket.width / 2;
 
         var dy = distY - rocket.height / 2;
@@ -133,7 +140,7 @@ function animate() {
     }
 ```
 
-## Function for highscore keeping
+## Highscore keeping / storing / displaying
 
 ```javascript
     function end() {
@@ -145,10 +152,12 @@ function animate() {
 
         let seconds = Math.round(timeDiff);
 
+        // Displaying score
         document.getElementById('score').innerHTML = seconds;
 
         const finalScore = document.getElementById('score');
 
+        // Highscore local data storing 
         const mostRecentScore = localStorage.getItem('mostRecentScore')
 
         let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
@@ -169,6 +178,7 @@ function animate() {
     }
 });
     
+// Highscore displaying 
 const highScoreList = document.getElementById('highscore');
 
 const highScores = JSON.parse(localStorage.getItem('highScores')) || [];

@@ -19,6 +19,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
         y: 500, 
         width: 16,
         height: 23.5,
+        // Sprite animation frames
         frameX: 2,
         frameY: 1,
     };
@@ -105,6 +106,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
 
         ctx.clearRect(0, 0, game.width, game.height);
 
+        // Spawning astroids at the top of the canvas
         ctx.beginPath();
 
         ctx.moveTo(0, spawnLineY);
@@ -113,9 +115,11 @@ document.getElementById('startbutton').addEventListener('click', function() {
 
         ctx.stroke();
         
+        // Itterating through astroids array 
         for (var i = 0; i < astroids.length; i++) {
             var astroid = astroids[i];
 
+            // Spawning of astroids and moving them down the page
             astroid.y += spawnRateOfDescent;
 
             ctx.beginPath();
@@ -128,6 +132,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
 
             ctx.fill();
         }
+        // Itterating through astroids array for collision detection
         for (let i = 0; i < astroids.length; i++) {
             collisionDetection(astroids[i], rocket)
         }
@@ -156,17 +161,19 @@ document.getElementById('startbutton').addEventListener('click', function() {
                 rocket.frameX = 4;
             }
         }
+        // Rendering sprite onto the canvas
         drawSprite(rocketSprite, rocket.width * rocket.frameX, rocket.height * rocket.frameY, rocket.width, rocket.height, rocket.x, rocket.y, rocket.width, rocket.height);
 
         handleRocketFrame();
     }
 
-    // Collision detection / game over functions
+    // Collision detection math for rockets and astriods
     function collisionDetection(astroid, rocket) {
         var distX = Math.abs(astroid.x - rocket.x - rocket.width / 2);  
         var distY = Math.abs(astroid.y - rocket.y - rocket.height / 2);
 
         if (distX <= (rocket.width / 1.1) && distY <= (rocket.height / 2)) {
+        // Game over conditions
         document.getElementById('game-over').innerHTML = 'Game Over';
 
         document.getElementById('game-over-button').innerHTML = 'Restart';
@@ -182,6 +189,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
         document.getElementById('scoretext').innerHTML = 'Score';
         }
         
+        // More collision detection math
         var dx = distX - rocket.width / 2;
 
         var dy = distY - rocket.height / 2;
@@ -194,7 +202,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
         location.reload();
     }
 
-    // Score / highscore keeping / displaying
+    // Score keeping
     function end() {
         endTime = new Date();
 
@@ -204,10 +212,12 @@ document.getElementById('startbutton').addEventListener('click', function() {
 
         let seconds = Math.round(timeDiff);
 
+        // Displaying score
         document.getElementById('score').innerHTML = seconds;
 
         const finalScore = document.getElementById('score');
 
+        // Highscore local data storing 
         const mostRecentScore = localStorage.getItem('mostRecentScore')
 
         let highScores = JSON.parse(localStorage.getItem('highScores')) || [];
@@ -228,6 +238,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
     }
 });
     
+// Highscore displaying 
 const highScoreList = document.getElementById('highscore');
 
 const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
