@@ -64,6 +64,34 @@ document.getElementById('startbutton').addEventListener('click', function() {
         }
     });
 
+    // Movement of rocket 
+    function rocketMovement () {
+        if (keys.w) {
+            if (rocket.y - 5 > 0){
+                rocket.y -= 1.5
+                rocket.frameX = 2;
+            }
+        } 
+        if (keys.a) {
+            if (rocket.x - 5 > 0){
+                rocket.x -= 1.5
+                rocket.frameX = 0;
+            }
+        } 
+        if (keys.s) {
+            if (rocket.y + rocket.height + 5 < game.height) {
+                rocket.y += 1.5
+                rocket.frameX = 2;
+            }
+        } 
+        if (keys.d) {
+            if (rocket.x + rocket.width + 5 < game.width) {
+                rocket.x += 1.5
+                rocket.frameX = 4;
+            }
+        }
+    }
+
     // Astroid spawning variables
     var spawnLineY = 0;
 
@@ -71,7 +99,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
 
     var spawnRateOfDescent = 1.5;
 
-    var lastSpawn = -1;
+    var lastSpawn = -50;
 
     var astroids = [];
 
@@ -124,7 +152,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
 
             ctx.beginPath();
 
-            ctx.arc(astroid.x, astroid.y, 10, 0, Math.PI * 2);
+            ctx.arc(astroid.x, astroid.y, 11, 0, Math.PI * 2);
 
             ctx.closePath();
 
@@ -136,35 +164,13 @@ document.getElementById('startbutton').addEventListener('click', function() {
         for (let i = 0; i < astroids.length; i++) {
             collisionDetection(astroids[i], rocket)
         }
-        // Movement of rocket 
-        if (keys.w) {
-            if (rocket.y - 5 > 0){
-                rocket.y -= 1.5
-                rocket.frameX = 2;
-            }
-        } 
-        if (keys.a) {
-            if (rocket.x - 5 > 0){
-                rocket.x -= 1.5
-                rocket.frameX = 0;
-            }
-        } 
-        if (keys.s) {
-            if (rocket.y + rocket.height + 5 < game.height) {
-                rocket.y += 1.5
-                rocket.frameX = 2;
-            }
-        } 
-        if (keys.d) {
-            if (rocket.x + rocket.width + 5 < game.width) {
-                rocket.x += 1.5
-                rocket.frameX = 4;
-            }
-        }
         // Rendering sprite onto the canvas
         drawSprite(rocketSprite, rocket.width * rocket.frameX, rocket.height * rocket.frameY, rocket.width, rocket.height, rocket.x, rocket.y, rocket.width, rocket.height);
 
+        // Rocket movement / animation functions
         handleRocketFrame();
+
+        rocketMovement();
     }
 
     // Collision detection math for rockets and astriods
