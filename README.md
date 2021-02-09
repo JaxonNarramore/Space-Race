@@ -36,6 +36,10 @@ D = Right
 
 ![Game over screen](gameover.png)
 
+## Wireframes
+
+![Wireframe](SpaceRace-Drawn-Mockup.jpeg)
+
 ## Animation of the canvas
 
 ```javascript

@@ -152,7 +152,7 @@ document.getElementById('startbutton').addEventListener('click', function() {
 
             ctx.beginPath();
 
-            ctx.arc(astroid.x, astroid.y, 11, 0, Math.PI * 2);
+            ctx.arc(astroid.x, astroid.y, 12, 0, Math.PI * 2);
 
             ctx.closePath();
 
