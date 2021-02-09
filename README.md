@@ -1,20 +1,5 @@
 # Space-Race
-This is a game where you are controlling a rocket and the goal is to avoid the astroids and stay alive as long as possible!
-
-## Controls
-To control the rocket you use the W, A, S, D keys.
-```
-W = Up
-S = Down
-A = Left
-D = Right
-```
-
-## Game Images
-
-![Game being played](gameplay.png)
-
-![Game over screen](gameover.png)
+This is a 2D game I built out as my first javascript project. It was inspired by my love for space and highscore-based arcade games.
 
 ## Link to live website
 https://jaxonnarramore.github.io
@@ -31,6 +16,21 @@ git clone https://github.com/JaxonNarramore/Space-Race.git
 ```text
 open index.html
 ```
+
+## Controls
+To control the rocket you use the W, A, S, D keys.
+```
+W = Up
+S = Down
+A = Left
+D = Right
+```
+
+## Game Images
+
+![Game being played](gameplay.png)
+
+![Game over screen](gameover.png)
 
 ## Animation of the canvas
 
