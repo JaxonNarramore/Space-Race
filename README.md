@@ -1,8 +1,7 @@
 # Space-Race
 This is a 2D game I built out as my first javascript project. It was inspired by my love for space and highscore-based arcade games.
 
-## Link to live website
-https://jaxonnarramore.github.io
+## [Live Site](https://jaxonnarramore.github.io)
 
 ## Steps to install on local computer
 1. Go to [repo](https://github.com/JaxonNarramore/Space-Race.git) on Github profile
@@ -16,6 +15,11 @@ git clone https://github.com/JaxonNarramore/Space-Race.git
 ```text
 open index.html
 ```
+## Features
+- User input for rocket movement 
+- Implementation of HTML Canvas
+- Implementation of local storage for highscore keeping
+- Sprite animation for rocket direction
 
 ## Controls
 To control the rocket you use the W, A, S, D keys.
@@ -191,3 +195,4 @@ highScoreList.innerHTML = highScores.map(score => {
 ## Contact with creator 
 
 Email Adress: jaxon_narramore@hotmail.com
+
