@@ -4,14 +4,13 @@ This is a 2D game I built out as my first javascript project. It was inspired by
 ## [Live Site](https://jaxonnarramore.github.io)
 
 ## Steps to install on local computer
-1. Go to [repo](https://github.com/JaxonNarramore/Space-Race.git) on Github profile
-2. `Fork` and `clone` repo
-3. Clone to local machine
+1. `Fork` and `clone` repo
+2. Clone to local machine
 ```text
 git clone https://github.com/JaxonNarramore/Space-Race.git
 ```
-4. Go to `Space-Race` directory
-5. Open `index.html` in browser
+3. Go to `Space-Race` directory
+4. Open `index.html` in browser
 ```text
 open index.html
 ```
